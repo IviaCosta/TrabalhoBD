@@ -1,0 +1,131 @@
+:root{
+    --background-color: #F9EEE1;
+    --main-color: #7195C1;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+
+.div-login{
+
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 25vh;
+    background-color: var(--main-color);
+}
+
+.img-logo{
+    max-height: 10vh;
+    padding: 10px;
+    border-radius: 20px;
+
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login{
+    margin-top: 15px;
+    padding: 7px;
+    border-radius: 5px;
+    width: 90%;
+    border-style: none;
+
+}
+button.login{
+    width: 85px;
+}
+
+a{
+    color: var(--background-color);
+}
+
+.header{
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+}
+.header img {
+    max-width: 75px;
+}
+
+.header a {
+    font-size: 24px;
+    color: var(--main-color);
+    text-decoration: none;
+    font-family: Verdana;
+    margin: 10px;
+}
+
+.header a:hover{
+ color: #fff;   
+}
+
+table{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    font-family: Verdana, sans-serif;
+}
+
+table img{
+    display: flex;
+    max-width: 150px;
+    height: 100px;
+    border-radius: 15px;
+    padding: 10px;
+    align-self: center;
+}
+
+td{ 
+    display: flex;
+    width: 20vw;
+    background-color: var(--main-color);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    justify-content: center;
+}
+
+td p{
+    color: var(--background-color);
+    text-transform: capitalize;
+}
+
+td button{
+    background-color: var(--background-color);
+    border-style: none;
+    border-radius: 5px;
+    width: 100px;
+    align-self: center;
+}
+td button:hover{
+box-shadow: 1px -1px #fff;
+}
+
+tr{
+    display: flex;
+    align-content: center;
+}
+.footer{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--main-color);
+}
