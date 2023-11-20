@@ -15,8 +15,9 @@
     <?php
         include '../Componentes/header.php';
         $conn = startconnection();
-        $query = "SELECT * FROM CURSO";
-        imprimirCursos($conn, $query);
+        $query = "SELECT C.nome, C.duracao, C.valor, P.nome as Professor FROM CURSO C JOIN PROFESSOR P ON C.id_professor = P.id_PROFESSOR;";
+        imprimirCursos($conn, $query,0);
+        
     ?>
 
     

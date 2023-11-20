@@ -1,6 +1,8 @@
 :root{
     --background-color: #F9EEE1;
     --main-color: #7195C1;
+    --button-color: #4B7FBF;
+
 }
 
 body {
@@ -76,6 +78,19 @@ a{
  color: #fff;   
 }
 
+.header button{
+    width: 70px;
+    padding: 10px;
+    border-style: none;
+    background-color: var(--button-color);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.header button:hover{
+    background-color: var(--main-color);
+}
+
 table{
     display: flex;
     flex-direction: row;
@@ -129,3 +144,86 @@ tr{
     align-items: center;
     color: var(--main-color);
 }
+.banner{
+    display:flex;
+    background-color: #fff;
+    width: 70%;
+    justify-content: space-around;
+}
+.banner img{
+    display: flex;
+    max-width: 150px;
+    height: 100px;
+    padding: 10px;
+    align-self: center;
+}
+.banner p{
+    align-self: center;
+}
+
+.body-cliente{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14pt;
+
+}
+
+.botoes{
+    display: flex;
+    width: 70%;
+    height: 75px;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #fff;
+    margin: 20px;
+}
+
+.botoes button{
+    background-color: var(--button-color);
+    color: #fff;
+    border-style: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12pt;
+}
+
+.botoes button:hover{
+    background-color: var(--main-color);
+}
+.curso img{
+    display: flex;
+    max-width: 100px;
+    height: 70px;
+    border-radius: 15px;
+    padding: 10px;
+    align-self: center;
+}
+.boas-vindas p{
+    display:flex;
+    background-color: var(--background-color);
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+    font-size: 16pt;
+    color: var(--main-color);
+}
+.div-editar{
+    display: flex;
+    padding: 30px;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 25vh;
+    background-color: var(--main-color);
+}
+.edicao{
+        padding: 7px;
+        border-radius: 5px;
+        width: 90%;
+        border-style: none;
+}
+.chega {
+    display: flex;
+    justify-content: center;
+    }

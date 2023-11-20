@@ -16,7 +16,7 @@
         <a href="../Paginas/principal.php" class="logo">
         <img class='img-logo' src="../Imagens/Logo/logo-nobg.png" alt="">
         </a>
-        <a href='../Paginas/login.php'><button>Login</button></a>
+        <a href='../Paginas/login.php'><button>Sair</button></a>
 
 
     </div>

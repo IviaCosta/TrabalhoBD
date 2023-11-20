@@ -18,9 +18,9 @@ include '../funcoes.php';
             $tipo = $_POST['user'];
 
             //$conn = startConnection();
-            
+            session_start();
             $_SESSION["email"] = $email;
-            $_SESSION['senha'] = $senha;
+            $_SESSION["senha"] = $senha;
             verificarUsuario($conn, $email, $senha,$tipo);
         }
     }
