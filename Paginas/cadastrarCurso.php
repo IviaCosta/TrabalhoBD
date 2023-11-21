@@ -42,7 +42,7 @@
         <img src="../Imagens/img_banner.png" alt="">
     </div>
 <div class="cadastro">
-        <form class='info' action="" method="POST">
+        <form class='cadastro' action="" method="POST">
             <input class="login" type="text" name="nome" placeholder="Nome">
             <input class="login" type="text" name="descricao" placeholder="Descrição">
             <input class="login" type="number" name="valor" placeholder="Valor">

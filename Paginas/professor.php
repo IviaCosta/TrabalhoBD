@@ -46,7 +46,7 @@
 
     <div class="botoes">
         <a href="cadastrarCurso.php"><button>Cadastrar cursos</button></a>
-        <a href="editarCurso.php"><button>Consultar acessos</button></a>
+        <a href="consultarAcesso.php"><button>Consultar acessos</button></a>
         <a href="editarPerfilProfessor.php"><button>Editar perfil</button></a>
 
 

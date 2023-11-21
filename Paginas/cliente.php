@@ -68,7 +68,7 @@
         ?>
     </div>
 </body>
-<!-- <?php
+<?php
     include "../componentes/footer.php";
-?> -->
+?>
 </html>

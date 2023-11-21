@@ -2,11 +2,15 @@
     --background-color: #F9EEE1;
     --main-color: #7195C1;
     --button-color: #4B7FBF;
-
+    --text-color:#102E4A;
+    --header-color:#EEFAFF;
+    --white-color: #fff;
 }
 
 body {
     background-color: var(--background-color);
+    margin: 0px;
+    font-family: Verdana, sans-serif;
 }
 
 
@@ -36,6 +40,8 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--main-color);
+
 }
 
 .login{
@@ -55,7 +61,7 @@ a{
 }
 
 .header{
-    background-color: #fff;
+    background-color: var(--header-color);
     display: flex;
     flex-direction: row;
     width: 100vw;
@@ -75,7 +81,7 @@ a{
 }
 
 .header a:hover{
- color: #fff;   
+ color: var(--white-color);   
 }
 
 .header button{
@@ -83,7 +89,7 @@ a{
     padding: 10px;
     border-style: none;
     background-color: var(--button-color);
-    color: #fff;
+    color: var(--white-color);
     border-radius: 10px;
 }
 
@@ -131,7 +137,7 @@ td button{
     align-self: center;
 }
 td button:hover{
-box-shadow: 1px -1px #fff;
+box-shadow: 1px -1px var(--white-color);
 }
 
 tr{
@@ -143,22 +149,31 @@ tr{
     justify-content: space-around;
     align-items: center;
     color: var(--main-color);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
 }
 .banner{
     display:flex;
-    background-color: #fff;
+    background-color: var(--header-color);
     width: 70%;
     justify-content: space-around;
+    border-radius: 15px;
 }
 .banner img{
     display: flex;
-    max-width: 150px;
-    height: 100px;
-    padding: 10px;
+    max-width: 200px;
     align-self: center;
+    margin-right: 85px;
 }
 .banner p{
     align-self: center;
+    text-align: center;
+    width: 100%;
+    color: var(--text-color);
 }
 
 .body-cliente{
@@ -175,13 +190,13 @@ tr{
     height: 75px;
     align-items: center;
     justify-content: space-around;
-    background-color: #fff;
+    background-color: var(--background-color);
     margin: 20px;
 }
 
 .botoes button{
     background-color: var(--button-color);
-    color: #fff;
+    color: var(--white-color);
     border-style: none;
     padding: 12px;
     border-radius: 10px;
@@ -206,7 +221,7 @@ tr{
     height: 30px;
     justify-content: center;
     font-size: 16pt;
-    color: var(--main-color);
+    color: var(--text-color);
 }
 .div-editar{
     display: flex;
@@ -227,3 +242,44 @@ tr{
     display: flex;
     justify-content: center;
     }
+
+.body-acessos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}    
+.tabela table{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tabela td,
+th {
+    border: 1px solid black;
+    text-transform: capitalize;
+    background-color: var(--white-color);
+    border-radius: 0%;
+    margin: 0px;
+}
+.tabela tr{
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.tabela-acessos{
+    margin-top: 50px;
+}
+.cadastro{
+    top: 20%;
+    left: 40%;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 40vh;
+    background-color: var(--main-color);
+    margin-top: 10px;
+}

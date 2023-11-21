@@ -267,5 +267,27 @@ function imprimeCurso($conn, $id)
 }
 
 
+function imprimeTabela($conn, $query)
+{
+    // Get the results of the query
+    $result = mysqli_query($conn, $query);
+
+    $fields = mysqli_fetch_fields($result);
+    echo "<table class='tabela'>";
+    echo "<tr>";
+    foreach ($fields as $field) {
+        echo "<td><strong>$field->name </strong></td>";
+    }
+    echo "</tr>";
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    foreach ($rows as $row) {
+        echo "<tr>";
+        foreach ($fields as $field)
+            printf("<td>%s</td>", $row[$field->name]);
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
 
 ?>
