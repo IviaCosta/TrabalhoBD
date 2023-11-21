@@ -39,7 +39,7 @@
     <br>
 <div class="banner">
         <p class='texto'>Preencha as informaçōes abaixo para cadastrar um novo curso</p>
-        <img src="../Imagens/Cursos/React.png" alt="">
+        <img src="../Imagens/img_banner.png" alt="">
     </div>
 <div class="cadastro">
         <form class='info' action="" method="POST">

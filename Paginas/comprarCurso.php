@@ -22,9 +22,12 @@
                 $result = mysqli_query($conn, $query);
                 $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $valor = $rows[0]['valor'];
+                novaCompra($conn,$id_curso, $id_cliente, $valor);
+            }
+            if (isset($_POST["botao-ver-$i"])) {
+                header("Location: verCurso.php?id_curso=$i");
             }
         }
-        novaCompra($conn,$id_curso, $id_cliente, $valor);
 
     }
     ?>

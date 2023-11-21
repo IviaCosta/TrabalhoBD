@@ -9,13 +9,22 @@
     <title>Principal</title>
     <?php
     include("../funcoes.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $id_curso = null;
+        for ($i = 0; $i < 100; $i++) {
+            if (isset($_POST["botao-ver-$i"])) {
+                header("Location: verCurso.php?id_curso=$i");
+            }
+        }
+
+    }
     ?>
 </head>
 <body>
     <?php
         include '../Componentes/header.php';
         $conn = startconnection();
-        $query = "SELECT C.nome, C.duracao, C.valor, P.nome as Professor FROM CURSO C JOIN PROFESSOR P ON C.id_professor = P.id_PROFESSOR;";
+        $query = "SELECT C.id_curso, C.nome, C.duracao, C.valor, P.nome as Professor FROM CURSO C JOIN PROFESSOR P ON C.id_professor = P.id_PROFESSOR;";
         imprimirCursos($conn, $query,0);
         
     ?>
