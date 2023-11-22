@@ -40,7 +40,18 @@
     ?>
     <br>
     <div class="banner">
-        <p class='texto'>Bem-vindo Professor! O que deseja fazer hoje?</p>
+        <div class="textos">
+            <p class='texto'>Bem-vindo Professor! O que deseja fazer hoje?</p>
+            <?php
+            $query = "SELECT cursos_vendidos from PROFESSOR WHERE email='$email'";
+            $result = mysqli_query($conn, $query);
+            $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $cursos_vendidos = $rows[0]['cursos_vendidos'];
+                echo"<p class='texto'>Você já realizou <strong>$cursos_vendidos</strong> vendas.</p>";
+            ?>
+            
+        </div>
+        
         <img src="../Imagens/img_banner.png" alt="">
     </div>
 

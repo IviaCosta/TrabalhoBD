@@ -65,6 +65,8 @@ function novaCompra($conn, $id_curso, $id_cliente, $valor)
 {
 
     $query = "INSERT INTO Compra (id_curso, id_cliente, valor) VALUES ('$id_curso', '$id_cliente', '$valor');";
+    // $query = "INSERT INTO Compra (id_curso, id_cliente, valor) VALUES ('1', '1', '1');";
+
     $result = mysqli_query($conn, $query);
 
     if (!$result) {

@@ -149,7 +149,7 @@ tr{
     justify-content: space-around;
     align-items: center;
     color: var(--main-color);
-    position: fixed;
+  
     left: 0;
     bottom: 0;
     width: 100%;
@@ -167,7 +167,7 @@ tr{
     display: flex;
     max-width: 200px;
     align-self: center;
-    margin-right: 85px;
+
 }
 .banner p{
     align-self: center;
@@ -282,4 +282,9 @@ th {
     max-width: 40vh;
     background-color: var(--main-color);
     margin-top: 10px;
+}
+.textos{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
 }

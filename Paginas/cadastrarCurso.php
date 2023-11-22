@@ -46,7 +46,7 @@
             <input class="login" type="text" name="nome" placeholder="Nome">
             <input class="login" type="text" name="descricao" placeholder="Descrição">
             <input class="login" type="number" name="valor" placeholder="Valor">
-            <input class="login" type="number" name="duracao" placeholder="Duração">
+            <input class="login" type="number" min="20" name="duracao" placeholder="Duração">
             <button class="login" type="submit" name="botao">Cadastrar</button>
         </form>
 </div>
