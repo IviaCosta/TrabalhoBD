@@ -56,4 +56,8 @@
 
 </body>
 
+<?php
+    include "../componentes/footer.php";
+?> 
+
 </html>

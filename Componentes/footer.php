@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="style.css">
     <title>Footer</title>
 </head>
-
 <body>
-    <div class="footer">
+    <footer>
         <p>Desenvolvido por: Ivia Costa e Nasser Rafael</p>
-    </div>
+</footer>
 </body>
 
 </html>

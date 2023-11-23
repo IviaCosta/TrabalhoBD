@@ -21,6 +21,7 @@
     ?>
 </head>
 <body>
+<div class='body-wrapper'>
     <?php
         include '../Componentes/header.php';
         $conn = startconnection();
@@ -29,7 +30,7 @@
         
     ?>
 
-    
+</div>
     
 </body>
 <?php

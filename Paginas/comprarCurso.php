@@ -43,11 +43,11 @@
         WHERE C.id_curso NOT IN (SELECT id_curso FROM COMPRA);";
         imprimirCursos($conn, $query,1);
     ?>
-    
-    
+        <div class='body-wrapper'></div>
     
 </body>
 <?php
     include "../componentes/footer.php";
-?>
+?> 
+
 </html>

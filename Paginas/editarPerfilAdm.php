@@ -14,27 +14,24 @@
 <?php
     include "../funcoes.php";
     session_start();
-    $id = $_SESSION["id_professor"];
-    $query = "SELECT email, nome, senha, especialidade FROM Professor where id_professor = $id";
+    $id = $_SESSION["id_Adm"];
+    $query = "SELECT email, nome, senha FROM Administrador where id_Adm = $id";
     $conn = startconnection();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $_POST['editar-nome'];
         $email = $_POST['editar-email'];
         $senha = $_POST['editar-senha'];
-        $especialidade = $_POST['editar-especialidade'];
 
-
-        $query = "UPDATE Professor
+        $query = "UPDATE Administrador
         SET 
         nome = '$nome',
         email='$email', 
-        senha='$senha',
-        especialidade='$especialidade'
+        senha='$senha'
         WHERE
-        Professor.id_professor = '$id'";
+        Administrador.id_Adm = '$id'";
         mysqli_query($conn, $query);
-        header("Location: professor.php");
+        header("Location: administrador.php");
         
     }
     ?>
@@ -53,7 +50,7 @@
 
     <section class='chega'>
     <?php
-    imprimePerfilEditar($conn, $query, 1);
+    imprimePerfilEditar($conn, $query, 0);
     ?>
     </section>
 
@@ -61,5 +58,4 @@
 <?php
     include "../componentes/footer.php";
 ?> 
-
 </html>

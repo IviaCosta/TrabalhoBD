@@ -38,6 +38,7 @@
 
 
     ?>
+    
     <br>
     <div class="banner">
         <div class="textos">
@@ -61,7 +62,6 @@
         <a href="editarPerfilProfessor.php"><button>Editar perfil</button></a>
 
 
-
     </div>
     <div class="cards">
         <?php
@@ -69,9 +69,11 @@
         imprimirCursos($conn, $query, 2);
         ?>
     </div>
+    <div class='body-wrapper'>
+    </div>
 </body>
-<!-- <?php
+ <?php
 include "../componentes/footer.php";
-?> -->
+?> 
 
 </html>

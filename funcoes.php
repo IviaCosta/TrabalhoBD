@@ -87,14 +87,14 @@ function imprimirCursos($conn, $query, $tipo)
     $fieldsName = array();
     foreach ($fields as $field)
         array_push($fieldsName, $field->name);
-    echo "<table>";
+    echo "<div class='card-curso'><table>";
     echo "<tr>";
     echo "<form method='POST'>";
     $contador = 0; foreach ($rows as $row) {
         $contador++;
         echo "<td>
             <div class='card'>
-                <img class='banner-curso' src='../Imagens/Cursos/{$row['nome']}.png' alt=''>
+                <img src='../Imagens/Cursos/{$row['nome']}.png' alt=''>
                 <div class='dados'>
                 ";
         foreach ($fieldsName as $field) {
@@ -136,7 +136,7 @@ function imprimirCursos($conn, $query, $tipo)
     }
     echo "</form>";
     echo "</tr>";
-    echo "</table>";
+    echo "</table></div>";
 }
 
 function imprimeCursoEditar($conn, $query)
@@ -244,7 +244,7 @@ function imprimeCurso($conn, $id)
     echo "<form method='POST'>";
     $contador = 0; foreach ($rows as $row) {
         $contador++;
-        echo "<td>
+        echo "<td class='ver-curso'>
             <div class='card'>
                 <img class='banner-curso' src='../Imagens/Cursos/{$row['Nome']}.png' alt=''>
                 <div class='dados'>
@@ -278,6 +278,9 @@ function imprimeTabela($conn, $query)
     echo "<table class='tabela'>";
     echo "<tr>";
     foreach ($fields as $field) {
+        if ($field->name == "data")
+        echo "<td class='dia_mes_ano'><strong>$field->name </strong></td>";
+        else
         echo "<td><strong>$field->name </strong></td>";
     }
     echo "</tr>";
@@ -285,10 +288,84 @@ function imprimeTabela($conn, $query)
     foreach ($rows as $row) {
         echo "<tr>";
         foreach ($fields as $field)
+            if ($field->name == "data")
+            printf("<td class='dia_mes_ano'>%s</td>", $row[$field->name]);
+            else if ($field->name == "Data de Acesso"){
+                if (!$row[$field->name]){
+                    printf("<td>Nunca acessado</td>", $row[$field->name]);
+                } else
+                printf("<td>%s</td>", $row[$field->name]);
+            }
+            else
             printf("<td>%s</td>", $row[$field->name]);
-        echo "</tr>";
+            echo "</tr>";
+
     }
     echo "</table>";
+}
+
+function imprimeTabelaExcluir($conn, $query, $tipo)
+{
+    // Get the results of the query
+    $result = mysqli_query($conn, $query);
+
+    $fields = mysqli_fetch_fields($result);
+    echo "<table class='tabela'>";
+    echo "<tr>";
+    foreach ($fields as $field) {
+        echo "<td><strong>$field->name </strong></td>";
+    }
+    echo "<td><strong>Botões</strong></td></tr><form action='' method='post'>";
+    
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($rows as $row) {
+        echo "<tr>";
+        foreach ($fields as $field)
+            printf("<td>%s</td>", $row[$field->name]);
+        if($tipo==1){
+        echo "<td><button class='botao_excluir' name='botao-excluir-{$row['id_Cliente']}'>Excluir</button></td>";
+        echo "</tr>";
+        }
+        if($tipo==2){
+            echo "<td><button class='botao_excluir' name='botao-excluir-{$row['id_professor']}'>Excluir</button></td>";
+            echo "</tr>";
+            }
+    }
+    echo "</form></table>";
+}
+
+function imprimeTabelaAprovacao($conn, $query)
+{
+    // Get the results of the query
+    $result = mysqli_query($conn, $query);
+
+    $fields = mysqli_fetch_fields($result);
+    echo "<table class='tabela'><form action='' method='post'>";
+    echo "<tr>";
+    foreach ($fields as $field) {
+        if ($field->name == "data")
+        echo "<td class='dia_mes_ano'><strong>$field->name </strong></td>";
+        else
+        echo "<td><strong>$field->name </strong></td>";
+    }
+    echo "
+    <td><strong>Botões</strong></td></tr>";
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    foreach ($rows as $row) {
+        echo "<tr>";
+        foreach ($fields as $field){
+            if ($field->name == "data")
+            printf("<td class='dia_mes_ano'>%s</td>", $row[$field->name]);
+            else
+            printf("<td>%s</td>", $row[$field->name]);
+        }
+            echo "<td><button name='botao-aprovar-{$row['id_compra']}' class='botao_excluir'>Aprovar</button>";
+            echo"<button name='botao-reprovar-{$row['id_compra']}' class='botao_excluir'>Reprovar</button></td>";
+            echo"</tr>";
+
+    }
+    echo "</form></table>";
 }
 
 

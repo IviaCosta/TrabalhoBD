@@ -67,6 +67,7 @@
         imprimirCursos($conn,$query, 4);
         ?>
     </div>
+    <div class="body-wrapper"></div>
 </body>
 <?php
     include "../componentes/footer.php";

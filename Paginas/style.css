@@ -103,6 +103,7 @@ table{
     width: 100%;
     justify-content: space-around;
     font-family: Verdana, sans-serif;
+    margin-top: 10px;
 }
 
 table img{
@@ -114,12 +115,13 @@ table img{
     align-self: center;
 }
 
+
 td{ 
     display: flex;
-    width: 20vw;
+    width: 185px;
     background-color: var(--main-color);
     margin: 15px;
-    padding: 15px;
+    padding: 5px;
     border-radius: 15px;
     justify-content: center;
 }
@@ -144,17 +146,18 @@ tr{
     display: flex;
     align-content: center;
 }
-.footer{
-    display:flex;
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
     justify-content: space-around;
     align-items: center;
     color: var(--main-color);
-  
-    left: 0;
-    bottom: 0;
     width: 100%;
     text-align: center;
-
+    height: 40px;
+    background-color: var(--background-color);
+    display: flex;
 }
 .banner{
     display:flex;
@@ -270,6 +273,7 @@ th {
 
 .tabela-acessos{
     margin-top: 50px;
+    width: 100%;
 }
 .cadastro{
     top: 20%;
@@ -287,4 +291,66 @@ th {
     display:flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.body-gerenciamento{
+    display: flex;
+    flex-direction: column;
+}
+
+.botao_excluir{
+    width: 70px;
+    padding: 2px;
+    border-style: none;
+    background-color: var(--button-color);
+    color: var(--white-color);
+    border-radius: 5px;
+}
+
+td.dia_mes_ano{
+    width: 250px;
+}
+.body-wrapper{
+    margin-bottom: 40px;
+}
+.botoes-relatorio{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: var(--background-color);
+    margin: 20px;
+}
+.botoes-relatorio button{
+    background-color: var(--button-color);
+    color: var(--white-color);
+    padding: 12px;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 10pt;
+    margin-top: 10px;
+    width: 300px;
+}
+
+.card-curso td{
+    padding: 20px;
+}
+.card img{
+    object-fit: cover;
+    width: 200px;
+    align-self: center;
+}
+
+.card button{
+    width: 70px;
+    padding: 2px;
+    border-style: none;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+.ver-curso{
+    padding: 35px;
 }
