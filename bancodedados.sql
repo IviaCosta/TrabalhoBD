@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 22/11/2023 às 15:54
+-- Tempo de geração: 24/11/2023 às 01:15
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -37,11 +37,11 @@ CREATE TABLE `Acesso_Realizado` (
 --
 
 INSERT INTO `Acesso_Realizado` (`id_compra`, `data_acesso`) VALUES
-(1, NULL),
-(2, '2023-11-22 11:34:28'),
-(3, NULL),
-(4, NULL),
-(5, NULL);
+(15, '2023-11-23 21:08:08'),
+(16, NULL),
+(17, NULL),
+(18, NULL),
+(19, NULL);
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `Administrador` (
 --
 
 INSERT INTO `Administrador` (`email`, `senha`, `nome`, `id_Adm`, `salario`) VALUES
-('ivia@bd.com', '1234', 'Ivia Administradora', 1, 3000.00);
+('ivia@bd.com', '1234', 'Ivia Adm', 1, 3000.00);
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `Cliente` (
   `email` varchar(20) NOT NULL,
   `senha` varchar(15) NOT NULL,
   `id_Cliente` int(6) NOT NULL,
-  `data_ingresso` date NOT NULL DEFAULT current_timestamp()
+  `data_ingresso` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -83,8 +83,19 @@ CREATE TABLE `Cliente` (
 --
 
 INSERT INTO `Cliente` (`nome`, `email`, `senha`, `id_Cliente`, `data_ingresso`) VALUES
-('Ivia Cliente', 'iviacliente@bd.com', '1234', 1, '2023-11-19'),
-('Elisa', 'elisa@bd.com', '1234', 3, '2023-11-19');
+('Ivia Cliente', 'iviacliente@bd.com', '1234', 1, '2023-11-23'),
+('Elisa Cliente', 'elisa@bd.com', '1234', 2, '2023-11-23'),
+('João Cliente', 'joaocliente@bd.com', '1234', 4, '2023-11-23');
+
+--
+-- Acionadores `Cliente`
+--
+DELIMITER $$
+CREATE TRIGGER `Trigger_dataIngressoCliente` BEFORE INSERT ON `Cliente` FOR EACH ROW BEGIN
+    SET NEW.data_ingresso = CURDATE();
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -93,10 +104,10 @@ INSERT INTO `Cliente` (`nome`, `email`, `senha`, `id_Cliente`, `data_ingresso`) 
 --
 
 CREATE TABLE `COMPRA` (
-  `data` datetime DEFAULT current_timestamp(),
+  `data` date DEFAULT NULL,
   `valor` decimal(10,2) NOT NULL,
   `id_compra` int(6) NOT NULL,
-  `aprovacao` tinyint(1) NOT NULL DEFAULT 0,
+  `aprovacao` int(1) NOT NULL DEFAULT 0,
   `id_curso` int(6) NOT NULL,
   `id_cliente` int(6) NOT NULL,
   `id_adm` int(6) NOT NULL DEFAULT 1
@@ -107,11 +118,11 @@ CREATE TABLE `COMPRA` (
 --
 
 INSERT INTO `COMPRA` (`data`, `valor`, `id_compra`, `aprovacao`, `id_curso`, `id_cliente`, `id_adm`) VALUES
-('2023-11-22 10:40:49', 150.00, 1, 1, 23, 3, 1),
-('2023-11-22 10:50:57', 179.99, 2, 1, 7, 3, 1),
-('2023-11-22 10:56:24', 249.99, 3, 1, 1, 3, 1),
-('2023-11-22 10:57:31', 51.00, 4, 1, 6, 3, 1),
-('2023-11-22 11:16:17', 189.99, 5, 1, 10, 3, 1);
+('2023-11-23', 279.99, 15, 1, 2, 1, 1),
+(NULL, 179.99, 16, 1, 7, 1, 1),
+(NULL, 169.99, 17, 1, 11, 1, 1),
+('2023-11-23', 189.99, 18, 1, 10, 1, 1),
+('2023-11-23', 249.99, 19, 2, 1, 1, 1);
 
 --
 -- Acionadores `COMPRA`
@@ -134,6 +145,12 @@ DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `Trigger_criarAcesso` AFTER INSERT ON `COMPRA` FOR EACH ROW BEGIN
 INSERT INTO Acesso_Realizado VALUES (NEW.id_compra, NULL);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `Trigger_dataAprovacao` BEFORE UPDATE ON `COMPRA` FOR EACH ROW BEGIN
+    SET NEW.data = CURDATE();
 END
 $$
 DELIMITER ;
@@ -170,8 +187,6 @@ INSERT INTO `Curso` (`nome`, `descricao`, `valor`, `duracao`, `id_curso`, `id_pr
 ('Flutter', 'Aprenda a criar aplicativos móveis incríveis usando Flutter. Este curso abrange o desenvolvimento multiplataforma para iOS e Android.', 279.99, 160.00, 2, 0),
 ('Python', 'Aprofunde-se no universo da programação com Python, uma linguagem versátil e poderosa. Este curso oferece uma introdu', 199.99, 120.00, 3, 0),
 ('C++', 'Descubra as complexidades da programação em C++. Este curso aborda desde a sintaxe básica até tópicos avançados, proporcionando uma compreensão sólida dessa linguagem de programação poderosa.', 99.99, 220.00, 4, 0),
-('JavaScript', 'Entre no mundo dinâmico do desenvolvimento web com JavaScript. Este curso explora os fundamentos da linguagem e como ela é usada para criar interatividade e dinamismo nas páginas web.', 149.99, 90.00, 5, 3),
-('HTML', 'Aprenda a estrutura e o estilo da web com este curso introdutório de HTML/CSS. Desde a criação de páginas simples até o design responsivo, você adquirirá habilidades essenciais para desenvolvimento web.', 51.00, 60.00, 6, 3),
 ('SQL', 'Mergulhe no universo dos bancos de dados com SQL. Este curso ensina os princípios do SQL, desde consultas básicas até operações avançadas, permitindo que você gerencie dados de maneira eficiente.', 179.99, 120.00, 7, 0),
 ('React', 'Construa interfaces de usuário modernas e reativas com React. Este curso abrange os conceitos essenciais e as práticas recomendadas para o desenvolvimento eficaz de aplicações web usando esta biblioteca JavaScript.', 219.99, 150.00, 8, 0),
 ('Angular', 'Aprenda a desenvolver aplicações web escaláveis e robustas com Angular. Este curso explora os recursos poderosos do framework, proporcionando uma compreensão aprofundada de como construir aplicações web dinâmicas.', 229.99, 160.00, 9, 0),
@@ -181,8 +196,7 @@ INSERT INTO `Curso` (`nome`, `descricao`, `valor`, `duracao`, `id_curso`, `id_pr
 ('Ruby', 'Entre no mundo elegante e expressivo da programação Ruby. Este curso abrange desde os conceitos básicos até o desenvolvimento avançado, capacitando você a criar aplicações Ruby eficientes.', 209.99, 130.00, 13, 0),
 ('C Sharp', 'Mergulhe no desenvolvimento de aplicações Windows e web com C#. Este curso explora os recursos poderosos da linguagem, proporcionando uma base sólida para a criação de aplicativos robustos.', 239.99, 170.00, 14, 0),
 ('Segurança', 'Explore os fundamentos da segurança cibernética, incluindo criptografia, detecção de ameaças e práticas recomendadas para proteger sistemas e dados.', 199.99, 120.00, 15, 0),
-('Data Science', 'Aprofunde-se na análise de dados e descubra insights valiosos com este curso de Data Science. Desde a coleta e limpeza de dados até a visualização e interpretação, você dominará as habilidades essenciais para o campo.', 279.99, 180.00, 16, 0),
-('Scrum', 'Scrum123', 150.00, 25.00, 23, 3);
+('Data Science', 'Aprofunde-se na análise de dados e descubra insights valiosos com este curso de Data Science. Desde a coleta e limpeza de dados até a visualização e interpretação, você dominará as habilidades essenciais para o campo.', 279.99, 180.00, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -196,7 +210,7 @@ CREATE TABLE `Professor` (
   `senha` varchar(15) NOT NULL,
   `especialidade` varchar(200) DEFAULT NULL,
   `id_professor` int(6) NOT NULL,
-  `salario` decimal(10,2) NOT NULL DEFAULT 5000.00,
+  `salario` decimal(10,2) NOT NULL DEFAULT 0.00,
   `data_ingresso` datetime NOT NULL DEFAULT current_timestamp(),
   `cursos_vendidos` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -206,8 +220,7 @@ CREATE TABLE `Professor` (
 --
 
 INSERT INTO `Professor` (`nome`, `email`, `senha`, `especialidade`, `id_professor`, `salario`, `data_ingresso`, `cursos_vendidos`) VALUES
-('evandrino', 'evandrino@bd.com', '1234', 'Banco de Dados', 0, 5171.00, '2023-11-16 00:00:00', 3),
-('Edson M', 'edson@bd.com', '1234', 'Modelagem de Sistemas', 3, 5000.00, '2023-11-22 00:00:00', 2);
+('evandrino', 'evandrino@bd.com', '1234', 'Banco de Dados', 0, 9428.00, '2023-11-16 00:00:00', 5);
 
 --
 -- Índices para tabelas despejadas
@@ -237,9 +250,9 @@ ALTER TABLE `Cliente`
 --
 ALTER TABLE `COMPRA`
   ADD PRIMARY KEY (`id_compra`),
+  ADD KEY `FK_id_adm` (`id_adm`),
   ADD KEY `FK_id_curso` (`id_curso`),
-  ADD KEY `FK_id_cliente` (`id_cliente`),
-  ADD KEY `FK_id_adm` (`id_adm`);
+  ADD KEY `FK_id_cliente` (`id_cliente`);
 
 --
 -- Índices de tabela `Curso`
@@ -252,7 +265,8 @@ ALTER TABLE `Curso`
 -- Índices de tabela `Professor`
 --
 ALTER TABLE `Professor`
-  ADD PRIMARY KEY (`id_professor`);
+  ADD PRIMARY KEY (`id_professor`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -268,13 +282,13 @@ ALTER TABLE `Administrador`
 -- AUTO_INCREMENT de tabela `Cliente`
 --
 ALTER TABLE `Cliente`
-  MODIFY `id_Cliente` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_Cliente` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `COMPRA`
 --
 ALTER TABLE `COMPRA`
-  MODIFY `id_compra` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_compra` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `Curso`
@@ -302,15 +316,15 @@ ALTER TABLE `Acesso_Realizado`
 -- Restrições para tabelas `COMPRA`
 --
 ALTER TABLE `COMPRA`
-  ADD CONSTRAINT `FK_id_adm` FOREIGN KEY (`id_adm`) REFERENCES `Administrador` (`id_Adm`),
-  ADD CONSTRAINT `FK_id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id_Cliente`),
-  ADD CONSTRAINT `FK_id_curso` FOREIGN KEY (`id_curso`) REFERENCES `Curso` (`id_curso`);
+  ADD CONSTRAINT `FK_id_adm` FOREIGN KEY (`id_adm`) REFERENCES `Administrador` (`id_Adm`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id_Cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_id_curso` FOREIGN KEY (`id_curso`) REFERENCES `Curso` (`id_curso`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `Curso`
 --
 ALTER TABLE `Curso`
-  ADD CONSTRAINT `FK_id_professor` FOREIGN KEY (`id_professor`) REFERENCES `Professor` (`id_professor`);
+  ADD CONSTRAINT `FK_id_professor` FOREIGN KEY (`id_professor`) REFERENCES `Professor` (`id_professor`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
