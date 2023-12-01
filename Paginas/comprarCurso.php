@@ -10,7 +10,7 @@
     <?php
     include("../funcoes.php");
     session_start();
-    $id_cliente = $_SESSION["id_cliente"];
+    $id_cliente = $_SESSION["id_Cliente"];
     $conn = startconnection();  
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_curso = null;
@@ -37,10 +37,14 @@
 <body>
     <?php
         include '../Componentes/header_logged.php';
+        // $query = "SELECT C.id_curso, C.nome, C.duracao, C.valor, P.nome as Professor 
+        // FROM CURSO C 
+        // JOIN PROFESSOR P ON C.id_professor = P.id_professor 
+        // WHERE C.id_curso NOT IN (SELECT id_curso FROM COMPRA where id_Cliente = $id_cliente);";
         $query = "SELECT C.id_curso, C.nome, C.duracao, C.valor, P.nome as Professor 
         FROM CURSO C 
-        JOIN PROFESSOR P ON C.id_professor = P.id_professor 
-        WHERE C.id_curso NOT IN (SELECT id_curso FROM COMPRA);";
+        JOIN PROFESSOR P ON C.id_professor = P.id_professor;"; 
+        
         imprimirCursos($conn, $query,1);
     ?>
         <div class='body-wrapper'></div>

@@ -330,3 +330,17 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- BEGIN
+--     DECLARE oldSalario DECIMAL;
+--     DECLARE valorCurso DECIMAL;
+--     DECLARE salarioTotal DECIMAL;
+--     DECLARE id_prof INT;
+--     SET id_prof = (SELECT P.id_professor from Compra CO join Curso CU on CO.id_curso=CU.id_curso join Professor P on CU.id_professor=P.id_professor where CO.id_compra=NEW.id_compra);
+--     SET oldSalario = (SELECT P.salario from Professor P where P.id_professor = id_prof);
+--     SET valorCurso = (SELECT CU.valor from COMPRA CO JOIN CURSO CU ON CO.id_curso=CU.id_curso where CO.id_compra=NEW.id_compra); 
+--     SET salarioTotal = oldSalario + (0.9 * valorCurso);
+    
+-- UPDATE Professor P SET P.salario = salarioTotal where id_professor = id_prof;
+-- END
