@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 24/11/2023 às 01:15
+-- Tempo de geração: 01/12/2023 às 15:17
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -37,11 +37,14 @@ CREATE TABLE `Acesso_Realizado` (
 --
 
 INSERT INTO `Acesso_Realizado` (`id_compra`, `data_acesso`) VALUES
-(15, '2023-11-23 21:08:08'),
-(16, NULL),
-(17, NULL),
-(18, NULL),
-(19, NULL);
+(1, NULL),
+(22, '2023-11-30 11:41:01'),
+(23, NULL),
+(28, NULL),
+(29, NULL),
+(30, '2023-11-30 23:11:02'),
+(31, NULL),
+(32, NULL);
 
 -- --------------------------------------------------------
 
@@ -62,7 +65,7 @@ CREATE TABLE `Administrador` (
 --
 
 INSERT INTO `Administrador` (`email`, `senha`, `nome`, `id_Adm`, `salario`) VALUES
-('ivia@bd.com', '1234', 'Ivia Adm', 1, 3000.00);
+('iviaadm@bd.com', '1234', 'Ivia Adm', 1, 3000.00);
 
 -- --------------------------------------------------------
 
@@ -84,8 +87,9 @@ CREATE TABLE `Cliente` (
 
 INSERT INTO `Cliente` (`nome`, `email`, `senha`, `id_Cliente`, `data_ingresso`) VALUES
 ('Ivia Cliente', 'iviacliente@bd.com', '1234', 1, '2023-11-23'),
-('Elisa Cliente', 'elisa@bd.com', '1234', 2, '2023-11-23'),
-('João Cliente', 'joaocliente@bd.com', '1234', 4, '2023-11-23');
+('Nasser Cliente', 'nasser@bd.com', '1234', 3, '2023-11-30'),
+('João Cliente', 'joaocliente@bd.com', '1234', 4, '2023-11-23'),
+('Joaquim', 'joaquim@bd.com', '1234', 9, '2023-11-30');
 
 --
 -- Acionadores `Cliente`
@@ -118,11 +122,14 @@ CREATE TABLE `COMPRA` (
 --
 
 INSERT INTO `COMPRA` (`data`, `valor`, `id_compra`, `aprovacao`, `id_curso`, `id_cliente`, `id_adm`) VALUES
-('2023-11-23', 279.99, 15, 1, 2, 1, 1),
-(NULL, 179.99, 16, 1, 7, 1, 1),
-(NULL, 169.99, 17, 1, 11, 1, 1),
-('2023-11-23', 189.99, 18, 1, 10, 1, 1),
-('2023-11-23', 249.99, 19, 2, 1, 1, 1);
+('2023-11-30', 179.99, 1, 1, 7, 1, 1),
+('2023-11-30', 279.99, 22, 1, 2, 1, 1),
+('2023-11-30', 199.99, 23, 1, 3, 1, 1),
+('2023-11-30', 219.99, 28, 1, 8, 1, 1),
+('2023-11-30', 249.99, 29, 2, 1, 1, 1),
+('2023-11-30', 179.99, 30, 1, 7, 9, 1),
+('2023-11-30', 169.99, 31, 1, 11, 4, 1),
+('2023-11-30', 99.99, 32, 1, 4, 4, 1);
 
 --
 -- Acionadores `COMPRA`
@@ -137,8 +144,9 @@ CREATE TRIGGER `Trigger_atualizaSalario` AFTER UPDATE ON `COMPRA` FOR EACH ROW B
     SET oldSalario = (SELECT P.salario from Professor P where P.id_professor = id_prof);
     SET valorCurso = (SELECT CU.valor from COMPRA CO JOIN CURSO CU ON CO.id_curso=CU.id_curso where CO.id_compra=NEW.id_compra); 
     SET salarioTotal = oldSalario + (0.9 * valorCurso);
-    
+IF (OLD.aprovacao = '0' and NEW.aprovacao = '1') THEN
 UPDATE Professor P SET P.salario = salarioTotal where id_professor = id_prof;
+END IF;
 END
 $$
 DELIMITER ;
@@ -183,20 +191,21 @@ CREATE TABLE `Curso` (
 --
 
 INSERT INTO `Curso` (`nome`, `descricao`, `valor`, `duracao`, `id_curso`, `id_professor`) VALUES
-('Java', 'Explore os fundamentos da programação Java neste curso abrangente. Desde conceitos básicos até tópicos avançados, você dominará a linguagem de programação mais utilizada no mundo.', 249.99, 150.00, 1, 0),
-('Flutter', 'Aprenda a criar aplicativos móveis incríveis usando Flutter. Este curso abrange o desenvolvimento multiplataforma para iOS e Android.', 279.99, 160.00, 2, 0),
-('Python', 'Aprofunde-se no universo da programação com Python, uma linguagem versátil e poderosa. Este curso oferece uma introdu', 199.99, 120.00, 3, 0),
+('Java', 'Explore os fundamentos da programação Java neste curso abrangente. Desde conceitos básicos até tópicos avançados, você dominará a linguagem de programação mais utilizada no mundo.', 249.99, 150.00, 1, 4),
+('Flutter', 'Aprenda a criar aplicativos móveis incríveis usando Flutter. Este curso abrange o desenvolvimento multiplataforma para iOS e Android.', 279.99, 160.00, 2, 2),
+('Python', 'Aprofunde-se no universo da programação com Python, uma linguagem versátil e poderosa. Este curso oferece uma introdu', 199.99, 120.00, 3, 3),
 ('C++', 'Descubra as complexidades da programação em C++. Este curso aborda desde a sintaxe básica até tópicos avançados, proporcionando uma compreensão sólida dessa linguagem de programação poderosa.', 99.99, 220.00, 4, 0),
 ('SQL', 'Mergulhe no universo dos bancos de dados com SQL. Este curso ensina os princípios do SQL, desde consultas básicas até operações avançadas, permitindo que você gerencie dados de maneira eficiente.', 179.99, 120.00, 7, 0),
-('React', 'Construa interfaces de usuário modernas e reativas com React. Este curso abrange os conceitos essenciais e as práticas recomendadas para o desenvolvimento eficaz de aplicações web usando esta biblioteca JavaScript.', 219.99, 150.00, 8, 0),
-('Angular', 'Aprenda a desenvolver aplicações web escaláveis e robustas com Angular. Este curso explora os recursos poderosos do framework, proporcionando uma compreensão aprofundada de como construir aplicações web dinâmicas.', 229.99, 160.00, 9, 0),
-('Node.js', 'Entre no mundo do desenvolvimento de servidor com Node.js. Este curso abrange a construção de aplicativos escaláveis, desde o básico até a criação de APIs RESTful eficientes.', 189.99, 120.00, 10, 0),
+('React', 'Construa interfaces de usuário modernas e reativas com React. Este curso abrange os conceitos essenciais e as práticas recomendadas para o desenvolvimento eficaz de aplicações web usando esta biblioteca JavaScript.', 219.99, 150.00, 8, 1),
+('Angular', 'Aprenda a desenvolver aplicações web escaláveis e robustas com Angular. Este curso explora os recursos poderosos do framework, proporcionando uma compreensão aprofundada de como construir aplicações web dinâmicas.', 229.99, 160.00, 9, 1),
+('Node.js', 'Entre no mundo do desenvolvimento de servidor com Node.js. Este curso abrange a construção de aplicativos escaláveis, desde o básico até a criação de APIs RESTful eficientes.', 189.99, 120.00, 10, 1),
 ('PHP', 'Explore as possibilidades de desenvolvimento web do lado do servidor com PHP. Este curso fornece uma introdução prática à linguagem, permitindo que você crie aplicações web dinâmicas.', 169.99, 100.00, 11, 0),
-('Swift', 'Desenvolva aplicativos incríveis para dispositivos iOS com Swift. Este curso explora os conceitos fundamentais da linguagem e fornece as habilidades necessárias para criar aplicações iOS modernas.', 259.99, 140.00, 12, 0),
-('Ruby', 'Entre no mundo elegante e expressivo da programação Ruby. Este curso abrange desde os conceitos básicos até o desenvolvimento avançado, capacitando você a criar aplicações Ruby eficientes.', 209.99, 130.00, 13, 0),
-('C Sharp', 'Mergulhe no desenvolvimento de aplicações Windows e web com C#. Este curso explora os recursos poderosos da linguagem, proporcionando uma base sólida para a criação de aplicativos robustos.', 239.99, 170.00, 14, 0),
-('Segurança', 'Explore os fundamentos da segurança cibernética, incluindo criptografia, detecção de ameaças e práticas recomendadas para proteger sistemas e dados.', 199.99, 120.00, 15, 0),
-('Data Science', 'Aprofunde-se na análise de dados e descubra insights valiosos com este curso de Data Science. Desde a coleta e limpeza de dados até a visualização e interpretação, você dominará as habilidades essenciais para o campo.', 279.99, 180.00, 16, 0);
+('Swift', 'Desenvolva aplicativos incríveis para dispositivos iOS com Swift. Este curso explora os conceitos fundamentais da linguagem e fornece as habilidades necessárias para criar aplicações iOS modernas.', 259.99, 140.00, 12, 4),
+('Ruby', 'Entre no mundo elegante e expressivo da programação Ruby. Este curso abrange desde os conceitos básicos até o desenvolvimento avançado, capacitando você a criar aplicações Ruby eficientes.', 209.99, 130.00, 13, 3),
+('C Sharp', 'Mergulhe no desenvolvimento de aplicações Windows e web com C#. Este curso explora os recursos poderosos da linguagem, proporcionando uma base sólida para a criação de aplicativos robustos.', 239.99, 170.00, 14, 2),
+('Segurança', 'Explore os fundamentos da segurança cibernética, incluindo criptografia, detecção de ameaças e práticas recomendadas para proteger sistemas e dados.', 199.99, 120.00, 15, 3),
+('Data Science', 'Aprofunde-se na análise de dados e descubra insights valiosos com este curso de Data Science. Desde a coleta e limpeza de dados até a visualização e interpretação, você dominará as habilidades essenciais para o campo.', 279.99, 180.00, 16, 4),
+('Jogos', 'o curso de jogos ira te ensinar', 160.00, 100.00, 24, 5);
 
 -- --------------------------------------------------------
 
@@ -220,7 +229,12 @@ CREATE TABLE `Professor` (
 --
 
 INSERT INTO `Professor` (`nome`, `email`, `senha`, `especialidade`, `id_professor`, `salario`, `data_ingresso`, `cursos_vendidos`) VALUES
-('evandrino', 'evandrino@bd.com', '1234', 'Banco de Dados', 0, 9428.00, '2023-11-16 00:00:00', 5);
+('evandrino', 'evandrino@bd.com', '1234', 'Banco de Dados', 0, 729.00, '2023-11-16 00:00:00', 4),
+('Edson', 'edson@bd.com', '1234', 'MDS', 1, 198.00, '2023-11-30 11:23:38', 1),
+('Silvia', 'silvia@bd.com', '1234', 'Redes', 2, 252.00, '2023-11-30 11:24:08', 1),
+('Andrei Rimsa', 'andrei@bd.com', '1234', 'LP', 3, 180.00, '2023-11-30 11:25:01', 1),
+('Eduardo ', 'edu@bd.com', '1234', 'Eng. Software', 4, 0.00, '2023-11-30 11:25:43', 0),
+('Daniel', 'daniel@bd.com', '1234', 'Jogos', 5, 0.00, '2023-11-30 23:18:29', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -282,13 +296,13 @@ ALTER TABLE `Administrador`
 -- AUTO_INCREMENT de tabela `Cliente`
 --
 ALTER TABLE `Cliente`
-  MODIFY `id_Cliente` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_Cliente` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `COMPRA`
 --
 ALTER TABLE `COMPRA`
-  MODIFY `id_compra` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_compra` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de tabela `Curso`
@@ -300,7 +314,7 @@ ALTER TABLE `Curso`
 -- AUTO_INCREMENT de tabela `Professor`
 --
 ALTER TABLE `Professor`
-  MODIFY `id_professor` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_professor` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas
@@ -330,17 +344,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
--- BEGIN
---     DECLARE oldSalario DECIMAL;
---     DECLARE valorCurso DECIMAL;
---     DECLARE salarioTotal DECIMAL;
---     DECLARE id_prof INT;
---     SET id_prof = (SELECT P.id_professor from Compra CO join Curso CU on CO.id_curso=CU.id_curso join Professor P on CU.id_professor=P.id_professor where CO.id_compra=NEW.id_compra);
---     SET oldSalario = (SELECT P.salario from Professor P where P.id_professor = id_prof);
---     SET valorCurso = (SELECT CU.valor from COMPRA CO JOIN CURSO CU ON CO.id_curso=CU.id_curso where CO.id_compra=NEW.id_compra); 
---     SET salarioTotal = oldSalario + (0.9 * valorCurso);
-    
--- UPDATE Professor P SET P.salario = salarioTotal where id_professor = id_prof;
--- END
