@@ -17,10 +17,4 @@ This repository contains a simple CRUD (Create, Read, Update, Delete) project im
 - MySQL database
 - Web server (XAMPP)
 
-## Setup
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/yourusername/crud-php-mysql.git
 
